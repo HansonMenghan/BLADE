@@ -84,7 +84,7 @@ This is the main function for estimating admixture proportions among language va
 text
 
 ```
-Y = X * β + ε,   β ~ Dirichlet(α),   ε ~ N(0, σ²)
+Y = X * β + ε,   β ~ beta(α1, α2),   ε ~ N(0, σ²)
 ```
 
 
@@ -100,11 +100,11 @@ decomp.admixture.func(
   freq.dat,
   Y.name,
   X.name,
-  mcmc.n = 30000,
+  mcmc.n = 50000,
   col = c("#BF3EFF", "#FF523F", ...),   # colour palette for plots
   test = "wilcox.test",                 # not used internally (legacy)
   prob.not.co.mat = NULL,               # optional correction matrix
-  burn.in = 0.95
+  burn.in = 0.5
 )
 ```
 
@@ -148,8 +148,8 @@ result <- decomp.admixture.func(
   freq.dat = freq_mat,
   Y.name = "ModernLanguage",
   X.name = c("SourceLangA", "SourceLangB", "SourceLangC"),
-  mcmc.n = 10000,
-  burn.in = 0.9
+  mcmc.n = 50000,
+  burn.in = 0.5
 )
 
 # Print estimates
@@ -340,7 +340,7 @@ LMM.func(
   phy.cov.matrix,
   spatial.cov.matrix,
   iter = 5000,
-  warmup = 0.95,
+  warmup = 0.9,
   chains = 1,
   seed = 0
 )
@@ -405,7 +405,7 @@ lmm_out <- LMM.func(
   Spatial.id = spat_id,
   phy.cov.matrix = phy_cov,
   spatial.cov.matrix = spat_cov,
-  iter = 2000
+  iter = 5000
 )
 
 # Variance partitioning (R²)
@@ -513,8 +513,8 @@ admix <- decomp.admixture.func(
   freq.dat = freq_mat,
   Y.name = "TargetLang",
   X.name = c("Source1", "Source2", "Source3"),
-  mcmc.n = 5000,
-  burn.in = 0.9
+  mcmc.n = 50000,
+  burn.in = 0.5
 )
 
 print(admix$admixture.prop)
